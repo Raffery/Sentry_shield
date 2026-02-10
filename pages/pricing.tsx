@@ -47,21 +47,21 @@ export default function Pricing() {
               <h4>Starter</h4>
               <p style={{ fontSize: 24, fontWeight: 700, margin: '8px 0' }}>$29/mo</p>
               <p>Up to 50 protected pages, email support, basic alerts.</p>
-              <button style={{ marginTop: 12, padding: '0.6rem 1rem', background: '#6a0dad', color: 'white', border: 'none', borderRadius: 6 }}>Choose</button>
+                <Link href={{ pathname: '/', query: { plan: 'Starter' } }} style={{ marginTop: 12, display: 'inline-block', padding: '0.6rem 1rem', background: '#6a0dad', color: 'white', borderRadius: 6, textDecoration: 'none' }}>Choose</Link>
             </div>
 
             <div style={{ background: 'white', padding: 20, borderRadius: 10, boxShadow: '0 6px 18px rgba(0,0,0,0.08)', border: '2px solid #6a0dad' }}>
               <h4>Growth</h4>
               <p style={{ fontSize: 24, fontWeight: 700, margin: '8px 0' }}>$99/mo</p>
               <p>Everything in Starter plus priority support and advanced rules.</p>
-              <button style={{ marginTop: 12, padding: '0.6rem 1rem', background: '#6a0dad', color: 'white', border: 'none', borderRadius: 6 }}>Choose</button>
+                <Link href={{ pathname: '/', query: { plan: 'Growth' } }} style={{ marginTop: 12, display: 'inline-block', padding: '0.6rem 1rem', background: '#6a0dad', color: 'white', borderRadius: 6, textDecoration: 'none' }}>Choose</Link>
             </div>
 
             <div style={{ background: 'white', padding: 20, borderRadius: 10, boxShadow: '0 4px 12px rgba(0,0,0,0.06)' }}>
               <h4>Enterprise</h4>
               <p style={{ fontSize: 24, fontWeight: 700, margin: '8px 0' }}>Contact us</p>
               <p>Custom SLAs, dedicated onboarding, and on-prem options.</p>
-              <button style={{ marginTop: 12, padding: '0.6rem 1rem', background: '#6a0dad', color: 'white', border: 'none', borderRadius: 6 }}>Contact</button>
+                <Link href={{ pathname: '/', query: { plan: 'Enterprise' } }} style={{ marginTop: 12, display: 'inline-block', padding: '0.6rem 1rem', background: '#6a0dad', color: 'white', borderRadius: 6, textDecoration: 'none' }}>Contact</Link>
             </div>
           </div>
         </div>

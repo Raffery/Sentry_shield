@@ -1,9 +1,64 @@
 import Head from "next/head";
 import Link from "next/link";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 import { FaBell, FaShieldAlt, FaPlug } from "react-icons/fa";
 import { motion } from "framer-motion";
 
 export default function Home() {
+  const router = useRouter();
+  const { plan: initialPlan } = router.query;
+
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
+  const [plan, setPlan] = useState<string>(typeof initialPlan === 'string' ? initialPlan : '');
+  const [sending, setSending] = useState(false);
+  const [status, setStatus] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
+
+  useEffect(() => {
+    if (typeof initialPlan === 'string') setPlan(initialPlan);
+  }, [initialPlan]);
+
+  useEffect(() => {
+    if (router.asPath.includes('plan=')) {
+      const el = document.getElementById('contact');
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [router.asPath]);
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    setStatus(null);
+
+    // Basic client validation
+    if (!name.trim() || !email.trim() || !message.trim()) {
+      setStatus({ type: 'error', text: 'Please fill all required fields.' });
+      return;
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      setStatus({ type: 'error', text: 'Please provide a valid email address.' });
+      return;
+    }
+
+    setSending(true);
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, message, plan })
+      });
+
+      const body = await res.json();
+      if (!res.ok) throw new Error(body?.error || 'Server error');
+      setStatus({ type: 'success', text: body?.message || 'Message sent — thank you!' });
+      setName(''); setEmail(''); setMessage(''); setPlan('');
+    } catch (err: any) {
+      setStatus({ type: 'error', text: err.message || 'Failed to send message.' });
+    } finally {
+      setSending(false);
+    }
+  }
 
   return (
     <div style={{ fontFamily: "Inter, sans-serif", backgroundColor: "#f8f6fb", minHeight: "100vh" }}>
@@ -125,10 +180,11 @@ export default function Home() {
       </section>
 
       {/* Contact Section */}
-      <section style={{ padding: "4rem 2rem", backgroundColor: "#f8f6fb", textAlign: "center" }}>
+      <section id="contact" style={{ padding: "4rem 2rem", backgroundColor: "#f8f6fb", textAlign: "center" }}>
         <h3 style={{ color: "#6a0dad", fontSize: "2rem", marginBottom: "2rem" }}>Get in Touch</h3>
 
         <motion.form
+          onSubmit={handleSubmit}
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
@@ -143,6 +199,9 @@ export default function Home() {
           <input
             type="text"
             placeholder="Your Name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required
             style={{
               padding: "0.8rem",
               borderRadius: "6px",
@@ -153,6 +212,9 @@ export default function Home() {
           <input
             type="email"
             placeholder="Your Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
             style={{
               padding: "0.8rem",
               borderRadius: "6px",
@@ -163,6 +225,9 @@ export default function Home() {
           <textarea
             placeholder="Your Message"
             rows={5}
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+            required
             style={{
               padding: "0.8rem",
               borderRadius: "6px",
@@ -171,21 +236,30 @@ export default function Home() {
               resize: "vertical"
             }}
           />
+
+          <input type="hidden" name="plan" value={plan} />
+
+          {status && (
+            <div style={{ color: status.type === 'success' ? 'green' : 'crimson' }}>{status.text}</div>
+          )}
+
           <motion.button
             type="submit"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            disabled={sending}
             style={{
               backgroundColor: "#6a0dad",
               color: "white",
               padding: "0.8rem",
               border: "none",
               borderRadius: "6px",
-              cursor: "pointer",
-              fontSize: "1rem"
+              cursor: sending ? 'not-allowed' : 'pointer',
+              fontSize: "1rem",
+              opacity: sending ? 0.8 : 1
             }}
           >
-            Send Message
+            {sending ? 'Sending…' : 'Send Message'}
           </motion.button>
         </motion.form>
       </section>
