@@ -8,7 +8,18 @@ export default function Home() {
   return (
     <div style={{ fontFamily: "Inter, sans-serif", backgroundColor: "#f8f6fb", minHeight: "100vh" }}>
       <Head>
-        <title>Sentry Shield</title>
+        <title>Sentry Shield — Protect Your Website From Scammers</title>
+        <meta name="description" content="Sentry Shield detects and blocks scam activity on sensitive web pages in real-time. Easy integration, real-time alerts, and enterprise controls." />
+        <link rel="canonical" href="https://example.com/" />
+
+        {/* Open Graph / Social */}
+        <meta property="og:title" content="Sentry Shield — Protect Your Website From Scammers" />
+        <meta property="og:description" content="Detect and block scam activity on sensitive pages with Sentry Shield. Real-time alerts, IP controls, and easy integration." />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://example.com/" />
+        <meta property="og:image" content="https://example.com/og-image.png" />
+        <meta name="twitter:card" content="summary_large_image" />
+
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
       </Head>
 

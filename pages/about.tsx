@@ -6,6 +6,16 @@ export default function About() {
     <div style={{ fontFamily: "Inter, sans-serif", backgroundColor: "#f8f6fb", minHeight: "100vh" }}>
       <Head>
         <title>About — Sentry Shield</title>
+        <meta name="description" content="Learn about Sentry Shield — our mission to protect websites from scams and automated abuse." />
+        <link rel="canonical" href="https://example.com/about" />
+
+        <meta property="og:title" content="About — Sentry Shield" />
+        <meta property="og:description" content="Learn about Sentry Shield — our mission to protect websites from scams and automated abuse." />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://example.com/about" />
+        <meta property="og:image" content="https://example.com/og-image.png" />
+        <meta name="twitter:card" content="summary_large_image" />
+
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
       </Head>
 

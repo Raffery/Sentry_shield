@@ -6,6 +6,16 @@ export default function Pricing() {
     <div style={{ fontFamily: "Inter, sans-serif", backgroundColor: "#f8f6fb", minHeight: "100vh" }}>
       <Head>
         <title>Pricing — Sentry Shield</title>
+        <meta name="description" content="Simple, predictable pricing for Sentry Shield — pay for the pages you protect. Starter, Growth, and Enterprise plans available." />
+        <link rel="canonical" href="https://example.com/pricing" />
+
+        <meta property="og:title" content="Pricing — Sentry Shield" />
+        <meta property="og:description" content="Simple, predictable pricing for Sentry Shield — Starter, Growth, and Enterprise plans." />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://example.com/pricing" />
+        <meta property="og:image" content="https://example.com/og-image.png" />
+        <meta name="twitter:card" content="summary_large_image" />
+
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
       </Head>
 
