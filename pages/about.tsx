@@ -1,7 +1,18 @@
 import Head from "next/head";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 export default function About() {
+  const router = useRouter();
+
+  const isActive = (path: string) => router.pathname === path;
+  const navLinkStyle = (path: string) => ({
+    color: "white",
+    marginLeft: "1rem",
+    textDecoration: "none",
+    borderBottom: isActive(path) ? '3px solid white' : 'none',
+    paddingBottom: '0.25rem'
+  });
   return (
     <div style={{ fontFamily: "Inter, sans-serif", backgroundColor: "#f8f6fb", minHeight: "100vh" }}>
       <Head>
@@ -31,9 +42,9 @@ export default function About() {
         </div>
 
         <nav style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-          <Link href="/" style={{ color: "white", marginLeft: "1rem", textDecoration: "none" }}>Home</Link>
-          <Link href="/about" style={{ color: "white", marginLeft: "1rem", textDecoration: "none" }}>About</Link>
-          <Link href="/pricing" style={{ color: "white", marginLeft: "1rem", textDecoration: "none" }}>Pricing</Link>
+          <Link href="/" style={navLinkStyle('/')}>Home</Link>
+          <Link href="/about" style={navLinkStyle('/about')}>About</Link>
+          <Link href="/pricing" style={navLinkStyle('/pricing')}>Pricing</Link>
         </nav>
       </header>
 

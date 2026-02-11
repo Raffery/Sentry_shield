@@ -9,6 +9,15 @@ export default function Home() {
   const router = useRouter();
   const { plan: initialPlan } = router.query;
 
+  const isActive = (path: string) => router.pathname === path;
+  const navLinkStyle = (path: string) => ({
+    color: "white",
+    marginLeft: "1rem",
+    textDecoration: "none",
+    borderBottom: isActive(path) ? '3px solid white' : 'none',
+    paddingBottom: '0.25rem'
+  });
+
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
@@ -98,14 +107,9 @@ export default function Home() {
         </div>
 
         <nav style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-          <a href="#features" style={{ color: "white", marginLeft: "1rem", textDecoration: "none" }}>Features</a>
-          <a href="#trust" style={{ color: "white", marginLeft: "1rem", textDecoration: "none" }}>Trust</a>
-
-          <div style={{ display: 'flex', gap: 8, marginLeft: 12 }}>
-            <Link href="/" style={{ padding: '0.4rem 0.8rem', borderRadius: 6, color: 'white', textDecoration: 'none', border: '1px solid rgba(255,255,255,0.6)' }}>Home</Link>
-            <Link href="/about" style={{ padding: '0.4rem 0.8rem', borderRadius: 6, color: 'white', textDecoration: 'none', border: '1px solid rgba(255,255,255,0.6)' }}>About Us</Link>
-            <Link href="/pricing" style={{ padding: '0.4rem 0.8rem', borderRadius: 6, color: 'white', textDecoration: 'none', border: '1px solid rgba(255,255,255,0.6)' }}>Pricing</Link>
-          </div>
+          <Link href="/" style={navLinkStyle('/')}>Home</Link>
+          <Link href="/about" style={navLinkStyle('/about')}>About</Link>
+          <Link href="/pricing" style={navLinkStyle('/pricing')}>Pricing</Link>
         </nav>
       </header>
 
@@ -123,8 +127,10 @@ export default function Home() {
         <p style={{ maxWidth: "600px", margin: "0 auto", fontSize: "1.2rem" }}>
           Sentry Shield helps banks and businesses secure sensitive web pages by detecting suspicious activity in real-time.
         </p>
-        <button
+        <Link
+          href="/pricing"
           style={{
+            display: "inline-block",
             backgroundColor: "white",
             color: "#6a0dad",
             padding: "0.8rem 2rem",
@@ -133,13 +139,14 @@ export default function Home() {
             cursor: "pointer",
             fontSize: "1rem",
             marginTop: "2rem",
+            textDecoration: "none",
             transition: "transform 0.2s ease, background-color 0.3s ease"
           }}
           onMouseOver={(e) => e.currentTarget.style.transform = "scale(1.05)"}
           onMouseOut={(e) => e.currentTarget.style.transform = "scale(1)"}
         >
           Get Started
-        </button>
+        </Link>
       </section>
 
       {/* Features Section */}
